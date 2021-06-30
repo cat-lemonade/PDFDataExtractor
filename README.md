@@ -1,5 +1,5 @@
-PDFDataExtractor Documentation
-==============================
+PDFDataExtractor
+================
 
 PDFDataExtractor is a toolkit for automatically extracting semantic information from PDF files of scientific articles, which features a template-based architecture with abilities to extract information from the following publishers, and more templates are currently under development: 
 
