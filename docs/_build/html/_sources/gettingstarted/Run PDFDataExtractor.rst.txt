@@ -1,0 +1,37 @@
+.. PDFDataExtractor documentation master file, created by
+   sphinx-quickstart on Fri Oct 30 18:27:38 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Run PDFDatxExtractor
+====================
+You can start to extract information from PDF files once the parent tool is correctly installed.
+
+Import necessary modules
+------------------------
+
+	.. code-block:: python
+	
+		from chemdataextractor import PDFDatxExtractor
+		
+
+
+Pass a PDF file 
+---------------
+
+	.. code-block:: python
+	
+		from PDFDatxExtractor.doc import Document
+		path = path
+		file = open(path, 'rb')
+		doc = Document.from_file(file, readers=[PdfReader()])
+
+
+
+
+
+
+
+
+
+
