@@ -11,6 +11,7 @@ PDFDataExtractor is a toolkit for automatically extracting semantic information 
 * | American Chemistry Society and Springer
 
 The full documentation is available here: https://pdfdataextractor.readthedocs.io/en/latest/?
+
 This guide provides a quick tour through PDFDataExtractor concepts and functionalities.
 
 Features
