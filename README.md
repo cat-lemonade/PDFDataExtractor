@@ -10,7 +10,7 @@ PDFDataExtractor is a toolkit for automatically extracting semantic information 
 * | Chemistry A European Journal
 * | American Chemistry Society and Springer
 
-This guide provides a quick tour through **PDFDataExtractor** concepts and functionalities.
+This guide provides a quick tour through PDFDataExtractor concepts and functionalities.
 
 Features
 ========
@@ -20,7 +20,7 @@ Features
 
 * |  Outputs PDF articles in plain text, JSON
 
-* |  Extract articles from **seven** main stream chemistry and physics publishers with high precision
+* |  Extract articles from main stream chemistry and physics publishers with high precision
 
 * |  Automated publisher detection
 
