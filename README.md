@@ -8,7 +8,7 @@ PDFDataExtractor is a toolkit for automatically extracting semantic information 
 * | Advanced Material Families (Wiley)
 * | Angewandte
 * | Chemistry A European Journal
-* | American Chemistry Society and Springer
+* | American Chemistry Society
 
 This guide provides a quick tour through **PDFDataExtractor** concepts and functionalities.
 
