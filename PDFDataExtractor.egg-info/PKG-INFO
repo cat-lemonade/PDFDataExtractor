@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: pdfdataextractor
+Version: 0.0.0.1
+Summary: A toolkit for automatically extracting semantic information from PDF files of scientific articles.
+Home-page: https://github.com/cat-lemonade/PDFDataExtractor
+Author: Miao Zhu
+Author-email: zhumiao@hotmail.co.uk
+License: MIT
+Keywords: text-mining pdf science scientific
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Text Processing
+Classifier: Topic :: Text Processing :: Linguistic
+License-File: LICENSE
+
+A toolkit for automatically extracting semantic information from PDF files of scientific articles.
+

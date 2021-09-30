@@ -1,0 +1,41 @@
+Default Extraction Mode
+=======================
+PDFDataExtractor automatically decides the template to use to perform the extraction. If none of the default templates match the input PDF file, it uses the generic template.
+
+
+	.. code-block:: python
+	
+		doc = Document.from_file(file, readers=[PdfReader()])
+
+
+
+Specific Extraction Mode
+========================
+Somethings PDFDataExtractor cannot decide throught which know publisher, change it over here!!!!
+
+
+You can explicitly tell PDFDataExtractor which template to use for extraction. The following publishers are supported:
+
+* |  Elsevier
+* | Royal Society of Chemistry
+* | Advanced Material Families (Wiley)
+* | Angewandte
+* | Chemistry A European Journal
+* | American Chemistry Society and Springer
+
+
+Simply pass the argument to PdfReader
+
+
+	.. code-block:: python
+	
+		doc = Document.from_file(file, readers=[PdfReader('els')])
+	
+els = Elsevier
+rsc = Royal Society of Chemistry
+amf = Advanced Material Families (Wiley)
+ang = Angewandte
+caj = Chemistry A European Journal
+acs = American Chemistry Society
+spr = Springer
+

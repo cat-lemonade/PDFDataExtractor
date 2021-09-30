@@ -1,0 +1,30 @@
+.. PDFDataExtractor documentation master file, created by
+   sphinx-quickstart on Fri Oct 30 18:27:38 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Install parent tool
+===================
+PDFDataExtractor is a tool embedded into its' parent tool, ChemDataExtractor. Firstly, following the guide below to install.
+
+
+Download ChemDataExtractor
+--------------------------
+At the command line, run:
+
+	.. code-block:: console
+
+		conda config --add channels conda-forge
+		conda install chemdataextractor
+
+As PDFDataExtractor is delivered together with ChemDataExtractor, this will automatically install everything you need.
+
+Getting the Data Files
+----------------------
+In order to function, ChemDataExtractor requires a variety of data files, such as machine learning models, dictionaries, and word clusters. Get these by running:
+
+	.. code-block:: console
+	
+		cde data download
+
+This will download all the necessary data files to the data directory. Run cde data where to see where this is.
