@@ -59,7 +59,7 @@ def download_xml():
     """
     This function reads in a json file which contains dois and file name, and download articles in xml correspondingly.
     """
-    api_key = 'b8edec6af4a9689879e5f5abcf4ae282'
+    api_key = ''
     url = 'https://api.elsevier.com/content/article/doi/{}?apiKey={}&httpAccept=text%2Fxml'
     path = r'/Users/miao/Desktop/PDFDataExtractor/SI/articles/Elesvier/xml/{}.json'
     # categories = ['battery', 'catalysis', 'cells', 'city', 'dssc', 'light', 'nano', 'neel', 'solar', 'super alloy']
