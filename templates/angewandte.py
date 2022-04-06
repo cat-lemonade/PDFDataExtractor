@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
+from chemdataextractor.doc import Paragraph
 import re
 
 
@@ -18,11 +19,11 @@ class AngewandteTemplate(Methods):
         self.footnotes = [[], []]
 
     def author(self):
-        '''Temporarily taken down'''
+        """Temporarily taken down"""
         pass
 
     def reference(self):
-        '''
+        """
         Reference extraction for PDFs from Angewandte
         Such extraction is conducted in 5 steps.
 
@@ -37,7 +38,7 @@ class AngewandteTemplate(Methods):
         :param ref_text: A list to store plain reference text, each element starts with a sequence number
         :param location: A list contains two sub lists, and the span of each reference entry is stored accordingly
         :param pattern: footnotes on pages where references are.
-        '''
+        """
 
         reference = {}
         ref_text = []
@@ -96,10 +97,10 @@ class AngewandteTemplate(Methods):
         return reference
 
     def keywords(self):
-        '''
+        """
         :param result: A list to store results
         :param identifier: coordinates of 'Keywords' textblock, used to find actual keywords
-        '''
+        """
         result = []
         identifier = 0
 
@@ -114,12 +115,12 @@ class AngewandteTemplate(Methods):
         return result
 
     def footnotes_detect(self):
-        '''
+        """
         Get footnotes from pages where Keywords and References are.
 
         :param pages: A list to store page numbers
         :param footnotes: A list contains two sub lists, used by footnotes_detect to store journal name and publisher
-        '''
+        """
         footnotes_status = False
         pages = []
 
@@ -149,7 +150,7 @@ class AngewandteTemplate(Methods):
         return self.footnotes + pages
 
     def section(self):
-        '''Extract section title and corresponding text'''
+        """Extract section title and corresponding text"""
         return self.get_section(self.pdf, self.extraction_pattern, pub='angewandte')
 
     def test(self):
@@ -159,11 +160,11 @@ class AngewandteTemplate(Methods):
         return self.get_puretext(self.pdf)
 
     def journal(self, info_type=None):
-        '''
+        """
         Extract journal information, info_type including jounal name, year, volume and page
 
         :param info_type: user-defined argument used to select jounal name, year, volume or page
-        '''
+        """
         journal = {'name': '',
                    'year': '',
                    'volume': '',
@@ -191,8 +192,13 @@ class AngewandteTemplate(Methods):
     def title(self):
         return self.metadata['title']
 
-    def abstract(self):
-        return self.metadata['abstract']
+    def abstract(self, chem=False):
+        abstract = self.metadata['abstract']
+
+        if not chem:
+            return abstract
+        else:
+            return Paragraph(abstract)
 
     def caption(self, nicely=False):
         if nicely == True:

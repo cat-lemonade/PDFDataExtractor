@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
+from chemdataextractor.doc import Paragraph
 import re
 
 class AmericanChemicalSocietyTemplate(Methods):
@@ -77,8 +78,13 @@ class AmericanChemicalSocietyTemplate(Methods):
         else:
             return self.metadata['keywords']
 
-    def abstract(self):
-        return self.metadata['abstract']
+    def abstract(self, chem=False):
+        abstract = self.metadata['abstract']
+
+        if not chem:
+            return abstract
+        else:
+            return Paragraph(abstract)
 
     def caption(self, nicely=False):
         if nicely == True:

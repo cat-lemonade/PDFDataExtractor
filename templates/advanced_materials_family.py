@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
+from chemdataextractor.doc import Paragraph
 import re
 
 
 class AdvancedMaterialsFamilyTemplate(Methods):
-    '''Template for PDFs from Advanced Materials Family'''
+    """Template for PDFs from Advanced Materials Family"""
 
     def __init__(self, pdf):
-        '''
+        """
         :param pdf: PDF extracted in ordered textblocks with features added
         :param extraction_pattern: Unique regex pattern for section title extraction of Advanced Materials Family
         :param metadata: Metadata extracted by default get_metadata() method, containing abstract, keywords, doi, figure caption and title
         :param footnotes: A list contains two sub lists, used by footnotes_detect to store journal name and publisher
-        '''
+        """
 
         Methods.__init__(self)
         self.pdf = pdf
@@ -21,11 +22,11 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         self.footnotes = [[], []]
 
     def author(self):
-        '''Temporarily taken down'''
+        """Temporarily taken down"""
         pass
 
     def reference(self):
-        '''
+        """
         Reference extraction for PDFs from Advanced Materials Family
         Such extraction is conducted in 5 steps.
 
@@ -40,7 +41,7 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         :param ref_text: A list to store plain reference text, each element starts with a sequence number
         :param location: A list contains two sub lists, and the span of each reference entry is stored accordingly
         :param pattern: footnotes on pages where references are.
-        '''
+        """
 
         reference = {}
         ref_text = []
@@ -118,12 +119,12 @@ class AdvancedMaterialsFamilyTemplate(Methods):
                     return value['text']
 
     def footnotes_detect(self):
-        '''
+        """
         Get footnotes from pages where Keywords and References are.
 
         :param pages: A list to store page numbers
         :param footnotes: A list contains two sub lists, used by footnotes_detect to store journal name and publisher
-        '''
+        """
         keyword_status = False
         pages = []
 
@@ -153,7 +154,7 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         return self.footnotes + pages
 
     def section(self):
-        '''Extract section title and corresponding text'''
+        """Extract section title and corresponding text"""
         return self.get_section(self.pdf, self.extraction_pattern, pub='wiley-vch gmbh')
 
     def test(self):
@@ -163,11 +164,11 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         return self.get_puretext(self.pdf)
 
     def journal(self, info_type=None):
-        '''
+        """
         Extract journal information, info_type including jounal name, year, volume and page.
 
         :param info_type: user-defined argument used to select jounal name, year, volume or page
-        '''
+        """
         journal = {'name': '',
                    'year': '',
                    'volume': '',
@@ -199,10 +200,10 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         return self.metadata['doi']
 
     def title(self):
-        '''
+        """
         :param identifier: used to select the textblock with the largest font size, kept updated until
         largest font size is obtained.
-        '''
+        """
         identifier=0
 
         for key, value in self.pdf.items():
@@ -216,15 +217,15 @@ class AdvancedMaterialsFamilyTemplate(Methods):
 
         return self.output_result['title']
 
-    def abstract(self):
-        '''
+    def abstract(self, chem=False):
+        """
         Abstract in Advanced Materials Family doesn't have 'Abstract' title. Thus, every textblock that span across
         the page is firstly selected and then unwanted textblocks are filtered based on average font sizes.
 
         :param results: A list used to store results
         :param font_size: A lsit used to store font size of each text block
         :param target_size: font size of textblocks that are part of 'abstract'
-        '''
+        """
         results = []
         font_size = []
 
@@ -243,7 +244,13 @@ class AdvancedMaterialsFamilyTemplate(Methods):
                 rounded_size = round(value['font']['font_size_ave'], 3)
                 if  rounded_size >= target_size * 0.98 and rounded_size <= target_size * 1.02:
                     results.append(value['text'].replace('\n', ''))
-        return results
+
+        abstract = results
+
+        if not chem:
+            return abstract
+        else:
+            return Paragraph(abstract)
 
     def caption(self, nicely=False):
         if nicely == True:

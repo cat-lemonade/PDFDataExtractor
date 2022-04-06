@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
+from chemdataextractor.doc import Paragraph
 import re
 
+
 class ChemistryEuropeanJournalTemplate(Methods):
-    '''Template for PDFs from Chemistry A European Journal'''
+    """Template for PDFs from Chemistry A European Journal"""
 
     def __init__(self, pdf):
-        '''
+        """
         :param pdf: PDF extracted in ordered textblocks with features added
         :param extraction_pattern: Unique regex pattern for section title extraction of Chemistry A European Journal
         :param metadata: Metadata extracted by default get_metadata() method, containing abstract, keywords, doi, figure caption and title
         :param footnotes: A list contains two sub lists, used by footnotes_detect to store journal name and publisher
-        '''
+        """
 
         Methods.__init__(self)
         self.pdf = pdf
@@ -20,11 +22,11 @@ class ChemistryEuropeanJournalTemplate(Methods):
         self.footnotes = [[], []]
 
     def author(self):
-        '''Temporarily taken down'''
+        """Temporarily taken down"""
         pass
 
     def reference(self):
-        '''
+        """
         Reference extraction for PDFs from Chemistry A European Journal
         Such extraction is conducted in 5 steps.
 
@@ -39,7 +41,7 @@ class ChemistryEuropeanJournalTemplate(Methods):
         :param ref_text: A list to store plain reference text, each element starts with a sequence number
         :param location: A list contains two sub lists, and the span of each reference entry is stored accordingly
         :param pattern: footnotes on pages where references are.
-        '''
+        """
 
         reference = {}
         ref_text = []
@@ -76,7 +78,7 @@ class ChemistryEuropeanJournalTemplate(Methods):
             return [tryint(x) for x in re.split('([0-9]+)', s)]
 
         def natural_sort(l):
-            l.sort(key = alphanum_key)
+            l.sort(key=alphanum_key)
 
         natural_sort(ref_text)
 
@@ -98,10 +100,10 @@ class ChemistryEuropeanJournalTemplate(Methods):
         return reference
 
     def keywords(self):
-        '''
+        """
         :param result: A list to store results
         :param identifier: coordinates of 'Keywords' textblock, used to find actual keywords
-        '''
+        """
         result = []
         identifier = 0
 
@@ -116,12 +118,12 @@ class ChemistryEuropeanJournalTemplate(Methods):
         return result
 
     def footnotes_detect(self):
-        '''
+        """
         Get footnotes from pages where Keywords and References are.
 
         :param pages: A list to store page numbers
         :param footnotes: A list contains two sub lists, used by footnotes_detect to store journal name and publisher
-        '''
+        """
         keyword_status = False
         pages = []
 
@@ -135,12 +137,12 @@ class ChemistryEuropeanJournalTemplate(Methods):
                 if 'wiley-vch ' in text.lower():
                     self.footnotes[0].append(text)
 
-            # Get page number
+                # Get page number
                 page_number = re.search('^\d+$', text)
                 if page_number:
                     pages.append(page_number.group())
 
-            # Get journal name
+                # Get journal name
                 publisher = re.search('^Chem\. Eur\. J.+\d$', text)
                 if publisher:
                     self.footnotes[1].append(publisher.group())
@@ -151,7 +153,7 @@ class ChemistryEuropeanJournalTemplate(Methods):
         return self.footnotes + pages
 
     def section(self):
-        '''Extract section title and corresponding text'''
+        """Extract section title and corresponding text"""
         return self.get_section(self.pdf, self.extraction_pattern, pub='wiley-vch gmbh')
 
     def test(self):
@@ -161,11 +163,11 @@ class ChemistryEuropeanJournalTemplate(Methods):
         return self.get_puretext(self.pdf)
 
     def journal(self, info_type=None):
-        '''
+        """
         Extract journal information, info_type including jounal name, year, volume and page
 
         :param info_type: user-defined argument used to select jounal name, year, volume or page
-        '''
+        """
         journal = {'name': '',
                    'year': '',
                    'volume': '',
@@ -191,16 +193,17 @@ class ChemistryEuropeanJournalTemplate(Methods):
         return self.metadata['doi']
 
     def title(self):
-        '''
+        """
         :param identifier: used to select the textblock with the largest font size, kept updated until
         largest font size is obtained.
-        '''
+        """
         identifier = 0
 
         for key, value in self.pdf.items():
             if key[0] == 0:  # Check first page
                 if value['font']['font_size_max'] > 13 and value['number_of_word'] > 3:
-                    if value['obj_mid'] >= (value['page_x'] * 0.8) and value['obj_mid'] <= (value['page_x'] * 1.2):  # check if textblock is centred
+                    if value['obj_mid'] >= (value['page_x'] * 0.8) and value['obj_mid'] <= (
+                            value['page_x'] * 1.2):  # check if textblock is centred
                         if len(value['font']['max_out_of_mixed']) > 1:  # Chars with max font size
                             if value['font']['font_size_max'] > identifier:
                                 identifier = value['font']['font_size_max']
@@ -208,7 +211,7 @@ class ChemistryEuropeanJournalTemplate(Methods):
 
         return self.output_result['title']
 
-    def abstract(self):
+    def abstract(self, chem=False):
         """
         Abstract in Chemistry A European Journal is seperated into two columns, essentially, two textblocks.
         First step is to find the text block that contains word 'abstract', and then add and assign its text and
@@ -218,19 +221,25 @@ class ChemistryEuropeanJournalTemplate(Methods):
         :param result: A list to store results
         :param identifier: coordinate of the fisrt text block
         """
-        result = []
+        results = []
         identifier = 0
 
         for key, value in self.pdf.items():
-            if key[0] == 0:# First page
+            if key[0] == 0:  # First page
                 if 'abstract' in value['text'].lower():
                     # result.append(value['text'].replace('\n',''))
                     identifier = value['position_y'][1]
 
                 if identifier != 0:
                     if identifier * 0.85 < value['position_y'][1] < identifier * 1.25:
-                        result.append(value['text'].replace('\n',''))
-        return result
+                        results.append(value['text'].replace('\n', ''))
+
+        abstract = results
+
+        if not chem:
+            return abstract
+        else:
+            return Paragraph(abstract)
 
     def caption(self, nicely=False):
         if nicely == True:
