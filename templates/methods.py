@@ -2,7 +2,7 @@ import re
 
 
 class Methods(object):
-    '''Generic methods for extraction '''
+    """Generic methods for extraction """
 
     def __init__(self):
         """
@@ -49,11 +49,11 @@ class Methods(object):
         return str('|^'.join(removals))  # Search pattern for page number, figure/table caption, and page headers
 
     def check_number(self, input_string):
-        '''Check if any number in the string'''
+        """Check if any number in the string"""
         return bool(re.search(r'\d', input_string))
 
     def check_bold(self, input_textblock):
-        '''Check if input string is in Bold, elsevier only atm'''
+        """Check if input string is in Bold, elsevier only atm"""
         text = input_textblock['font']['font_name_most'][0][0][-1]
         if text == 'B':
             return True
@@ -61,11 +61,11 @@ class Methods(object):
             return True
 
     def most_frequent(self, List):
-        '''Return the most frequent element from a list'''
+        """Return the most frequent element from a list"""
         return max(set(List), key=List.count)
 
     def get_reference(self, dic):
-        '''
+        """
         Extract references from extracted sections in a three-stage manner:
         1. build text from pdf dictionary
         2. build location pairs, which indicates the span of each reference entry
@@ -81,7 +81,7 @@ class Methods(object):
         :param ref_sequence: A list that stores the ending sequence of each reference entry
         :param ref_loc_pair: A list that stores the span of each reference entry
 
-        '''
+        """
 
         reference = {}
         ref_text = []
@@ -145,7 +145,7 @@ class Methods(object):
                     return reference
 
     def get_section(self, dic, extraction_pattern, pub):
-        '''
+        """
         Segment document main body into different sections
 
         :param dic: Pre-processed pdf file
@@ -158,7 +158,7 @@ class Methods(object):
         :param titles_new: Updated from 'titles_new' based on 'sizes'
         :param target: Noisy information including Headers, captions and page number
         :param droped_text: Headers, captions and page number are collected in this list
-        '''
+        """
 
         locations, text, titles, sizes, location_new, titles_new = [], [], [], [], [], []
         target = self.header_removal(dic)  # Headers, captions and page number get removed here from the whole text
@@ -236,7 +236,7 @@ class Methods(object):
         return pdf_body
 
     def get_metadata(self, pdf):
-        '''
+        """
         Default metadata extraction methods, including:
         abstract, keywords, doi, figure captions, title
 
@@ -247,7 +247,7 @@ class Methods(object):
         :param bool title__status: Whether title is found. Default False
         :param abstract_location: Coordinates of the text block that contains string 'abstract'
         :param identifier: Strings of the text block that contains string 'abstract'
-        '''
+        """
 
         figure_status = False
         table_status = False
