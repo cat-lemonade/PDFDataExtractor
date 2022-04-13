@@ -20,11 +20,9 @@ Features
 
 * |  Outputs PDF articles in plain text, JSON
 
-* |  Extract articles from **seven** main stream chemistry and physics publishers with high precision
+* |  Extract articles from six main stream chemistry and physics publishers with high precision
 
 * |  Automated publisher detection
-
-* |  Automated articles download from reference 
 
 
 Developing Features
