@@ -9,7 +9,7 @@ README = (HERE / 'README.md').read_text()
 
 setup(
     name='pdfdataextractor',
-    version='v0.1',
+    version='1.0',
     author='Miao Zhu',
     author_email='zhumiao@hotmail.co.uk',
     license='MIT',
