@@ -221,7 +221,7 @@ class AdvancedMaterialsFamilyTemplate(Methods):
         """
         Abstract in Advanced Materials Family doesn't have 'Abstract' title. Thus, every textblock that span across
         the page is firstly selected and then unwanted textblocks are filtered based on average font sizes.
-
+˙˙
         :param results: A list used to store results
         :param font_size: A lsit used to store font size of each text block
         :param target_size: font size of textblocks that are part of 'abstract'
