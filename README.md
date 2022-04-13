@@ -36,7 +36,9 @@ Citing
 ======
 PDFDataExtractor:
 
-   The paper is currently under review. This project was financially supported by the Science and Technology Facilities Council (STFC), the Royal Academy of Engineering (RCSRF1819\7\10), and BASF.
+   Zhu, M. and Cole, J., 2022. PDFDataExtractor: A Tool for Reading Scientific Text and Interpreting Metadata from the Typeset Literature in the Portable Document Format. Journal of Chemical Information and Modeling, 62(7), pp.1633-1643.
+   
+   This project was financially supported by the Science and Technology Facilities Council (STFC), the Royal Academy of Engineering (RCSRF1819\7\10), and BASF.
    
    
 
