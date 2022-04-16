@@ -79,6 +79,25 @@ PDFDataExtractor can also output results as semantic information, following belo
 		# Get References
 		pdf.reference()
 
+Chemistry Mode
+==============
+
+You can use the flag "chem=Ture" to instruct the function to carry out chemistry related information extraction at the same time when extracting metadata, using ChemDataExtractor
+
+	.. code-block:: python
+		
+		# Path to the PDF file
+		file = r'path to the file'
+
+		# Create an instance
+		reader = Reader()
+
+		# Read the file
+		pdf = reader.read_file(file)
+
+		# Show extracted chemical information
+		r = pdf.abstract(chem=True)
+		r.records.serialize()
 
 Image Mode (Temporarily unavailable)
 ====================================
