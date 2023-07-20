@@ -2,7 +2,7 @@
 from .methods import Methods
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
-from chemdataextractor.doc import Paragraph
+#from chemdataextractor.doc import Paragraph
 import re
 
 
