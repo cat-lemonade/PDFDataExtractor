@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
-from chemdataextractor.doc import Paragraph
+#from chemdataextractor.doc import Paragraph
 import re
 
 
@@ -195,10 +195,12 @@ class AngewandteTemplate(Methods):
     def abstract(self, chem=False):
         abstract = self.metadata['abstract']
 
-        if not chem:
-            return abstract
-        else:
-            return Paragraph(abstract)
+        return abstract
+       
+    def text_abstract(self):
+        abstract = self.metadata['abstract']
+
+        return abstract
 
     def caption(self, nicely=False):
         if nicely == True:

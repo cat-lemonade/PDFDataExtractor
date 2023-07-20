@@ -84,7 +84,7 @@ class ElsevierTemplate(Methods):
     def keywords(self):
         return self.metadata['keywords'].lower().replace('keywords', '')
 
-    def abstract(self, chem=False):
+    def text_abstract(self, chem=False):
         abstract = self.metadata['abstract']
 
         if not chem:

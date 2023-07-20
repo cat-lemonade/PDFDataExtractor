@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
-from chemdataextractor.doc import Paragraph
+#from chemdataextractor.doc import Paragraph
 import re
 
 
@@ -217,7 +217,7 @@ class AdvancedMaterialsFamilyTemplate(Methods):
 
         return self.output_result['title']
 
-    def abstract(self, chem=False):
+    def abstract(self):
         """
         Abstract in Advanced Materials Family doesn't have 'Abstract' title. Thus, every textblock that span across
         the page is firstly selected and then unwanted textblocks are filtered based on average font sizes.
@@ -247,10 +247,42 @@ class AdvancedMaterialsFamilyTemplate(Methods):
 
         abstract = results
 
-        if not chem:
-            return abstract
-        else:
-            return Paragraph(abstract)
+
+        return abstract
+    
+    def text_abstract(self, chem=False):
+        """
+        Abstract in Advanced Materials Family doesn't have 'Abstract' title. Thus, every textblock that span across
+        the page is firstly selected and then unwanted textblocks are filtered based on average font sizes.
+˙˙
+        :param results: A list used to store results
+        :param font_size: A lsit used to store font size of each text block
+        :param target_size: font size of textblocks that are part of 'abstract'
+        """
+        results = []
+        font_size = []
+
+        # Get textblocks that span across the page
+        for key, value in self.pdf.items():
+            if key[0] == 0:# First page
+                if value['horizontal'] > value['page_x']:#span horizontally acroos the middle of the page
+                    font_size.append(round(value['font']['font_size_ave'], 3))
+
+        # Get font size of 'abstract' text blocks
+        target_size = self.most_frequent(font_size)
+
+        # Filter unwanted textblocks
+        for key, value in self.pdf.items():
+            if key[0] == 0:# First page
+                rounded_size = round(value['font']['font_size_ave'], 3)
+                if  rounded_size >= target_size * 0.98 and rounded_size <= target_size * 1.02:
+                    results.append(value['text'].replace('\n', ''))
+
+        abstract = " ".join(results)
+
+
+        return abstract
+
 
     def caption(self, nicely=False):
         if nicely == True:

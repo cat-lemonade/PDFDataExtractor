@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .methods import Methods
-from chemdataextractor.doc import Paragraph
+#from chemdataextractor.doc import Paragraph
 import re
 
 
@@ -236,10 +236,38 @@ class ChemistryEuropeanJournalTemplate(Methods):
 
         abstract = results
 
-        if not chem:
-            return abstract
-        else:
-            return Paragraph(abstract)
+
+        return abstract
+
+    def text_abstract(self):
+        """
+        Abstract in Chemistry A European Journal is seperated into two columns, essentially, two textblocks.
+        First step is to find the text block that contains word 'abstract', and then add and assign its text and
+        coordinates to results and identifier. Second step is to add the next textblock by comparing their relative
+        positions.
+
+        :param result: A list to store results
+        :param identifier: coordinate of the fisrt text block
+        """
+        results = []
+        identifier = 0
+
+        for key, value in self.pdf.items():
+            if key[0] == 0:  # First page
+                if 'abstract' in value['text'].lower():
+                    # result.append(value['text'].replace('\n',''))
+                    identifier = value['position_y'][1]
+
+                if identifier != 0:
+                    if identifier * 0.85 < value['position_y'][1] < identifier * 1.25:
+                        results.append(value['text'].replace('\n', ''))
+
+        abstract = " ".join(results)
+
+
+        return abstract
+
+
 
     def caption(self, nicely=False):
         if nicely == True:
