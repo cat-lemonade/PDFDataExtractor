@@ -16,7 +16,7 @@ This guide provides a quick tour through **PDFDataExtractor** concepts and funct
 
 Features
 ========
-* |  Extract metadata information from scientific PDFs, including: title, anthor, abstract, journal name, journal year, journal volume, journal page number, doi, keywords, figure captions, section titles, heading, page number and references
+* |  Extract metadata information from scientific PDFs, including: title, author, abstract, journal name, journal year, journal volume, journal page number, doi, keywords, figure captions, section titles, heading, page number and references
 
 * |  Chemistry-aware PDF information extraction
 
