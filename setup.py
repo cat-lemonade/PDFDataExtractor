@@ -21,7 +21,7 @@ setup(
     zip_safe=False,
     entry_points={},
     tests_require=['pytest'],
-    install_requires=['pdfminer.six==20200121'],
+    install_requires=['pdfminer.six==20200121','chemdataextractor==1.3.0'],
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
